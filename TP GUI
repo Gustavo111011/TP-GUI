@@ -78,7 +78,8 @@ local success, err = pcall(function()
     end
 
     -- URL do arquivo do GitHub (substitua com o link correto)
-    local githubUrl = "https://raw.githubusercontent.com/Gustavo111011/TP-GUI/refs/heads/main/TP%20GUI"
+    local githubUrl = https://raw.githubusercontent.com/Gustavo111011/TP-GUI/refs/heads/main/TP%20GUI
+"
     loadScriptFromGitHub(githubUrl)
 
     -- Criação da GUI principal
