@@ -1,0 +1,198 @@
+-- Certifique-se de que seu executor suporta GUI personalizada!
+
+local success, err = pcall(function()
+    -- Função de notificação personalizada com estilo atualizado
+    local function createNotification(text, color)
+        local Notification = Instance.new("ScreenGui")
+        local NotifyFrame = Instance.new("Frame")
+        local NotifyText = Instance.new("TextLabel")
+        local UIStroke = Instance.new("UIStroke")
+        local UICorner = Instance.new("UICorner")
+
+        Notification.Name = "Notification"
+        Notification.Parent = game.CoreGui
+
+        NotifyFrame.Name = "NotifyFrame"
+        NotifyFrame.Parent = Notification
+        NotifyFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fundo preto
+        NotifyFrame.Size = UDim2.new(0, 300, 0, 50)
+        NotifyFrame.Position = UDim2.new(1, -1, 1, -10) -- Ajustado para o canto inferior direito
+        NotifyFrame.AnchorPoint = Vector2.new(1, 1) -- Alinhado ao canto inferior direito
+        NotifyFrame.BackgroundTransparency = 0.1
+        NotifyFrame.ClipsDescendants = true
+        NotifyFrame.ZIndex = 10
+
+        -- Contorno azul neon
+        UIStroke.Parent = NotifyFrame
+        UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        UIStroke.Color = Color3.fromRGB(0, 170, 255) -- Azul neon
+        UIStroke.Thickness = 2
+
+        -- Bordas arredondadas
+        UICorner.Parent = NotifyFrame
+        UICorner.CornerRadius = UDim.new(0, 10)
+
+        NotifyText.Name = "NotifyText"
+        NotifyText.Parent = NotifyFrame
+        NotifyText.Text = text
+        NotifyText.Font = Enum.Font.SourceSansBold
+        NotifyText.TextSize = 14
+        NotifyText.TextColor3 = Color3.fromRGB(255, 255, 255) -- Texto branco
+        NotifyText.BackgroundTransparency = 1
+        NotifyText.Size = UDim2.new(1, -20, 1, 0)
+        NotifyText.Position = UDim2.new(0.5, 0, 0.5, 0)
+        NotifyText.AnchorPoint = Vector2.new(0.5, 0.5)
+        NotifyText.TextWrapped = true
+        NotifyText.ZIndex = 10
+
+        NotifyFrame:TweenPosition(
+            NotifyFrame.Position + UDim2.new(0, -320, 0, 0),
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Quart,
+            1,
+            true
+        )
+
+        game:GetService("Debris"):AddItem(Notification, 5) -- Remove após 5 segundos
+    end
+
+    createNotification("Script TP GUI de Gustavo Developer Executado com sucesso. Pressione L para abrir e fechar a GUI.", Color3.fromRGB(255, 0, 0))
+
+    -- Função para carregar o script do GitHub
+    local function loadScriptFromGitHub(url)
+        local httpService = game:GetService("HttpService")
+        local success, response = pcall(function()
+            return httpService:GetAsync(url)
+        end)
+
+        if success then
+            local chunk, err = loadstring(response)
+            if chunk then
+                chunk() -- Executa o código carregado
+            else
+                createNotification("Erro ao carregar script: " .. err, Color3.fromRGB(255, 0, 0))
+            end
+        else
+            createNotification("Erro ao acessar GitHub: " .. response, Color3.fromRGB(255, 0, 0))
+        end
+    end
+
+    -- URL do arquivo do GitHub (substitua com o link correto)
+    local githubUrl = "https://raw.githubusercontent.com/usuario/repositorio/branch/arquivo.lua"
+    loadScriptFromGitHub(githubUrl)
+
+    -- Criação da GUI principal
+    local ScreenGui = Instance.new("ScreenGui")
+    local Frame = Instance.new("Frame")
+    local UIStroke = Instance.new("UIStroke") -- Contorno azul neon
+    local UICorner = Instance.new("UICorner")
+    local Title = Instance.new("TextLabel")
+    local NameBox = Instance.new("TextBox")
+    local TPButton = Instance.new("TextButton")
+    local TPButtonUICorner = Instance.new("UICorner") -- Borda arredondada do botão TP
+
+    ScreenGui.Name = "TeleportGui"
+    ScreenGui.Parent = game.CoreGui
+
+    Frame.Name = "MainFrame"
+    Frame.Parent = ScreenGui
+    Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Frame.Size = UDim2.new(0, 300, 0, 200)
+    Frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+    Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    Frame.Draggable = true
+    Frame.Active = true
+    Frame.Selectable = true
+
+    -- Contorno azul neon da GUI
+    UIStroke.Parent = Frame
+    UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    UIStroke.Color = Color3.fromRGB(0, 170, 255) -- Azul neon
+    UIStroke.Thickness = 2
+
+    -- Bordas arredondadas para a GUI
+    UICorner.Parent = Frame
+    UICorner.CornerRadius = UDim.new(0, 10)
+
+    Title.Name = "Title"
+    Title.Parent = Frame
+    Title.Text = "TP GUI GUSTAVO DEVELOPER"
+    Title.Font = Enum.Font.SourceSansBold
+    Title.TextSize = 20
+    Title.TextColor3 = Color3.fromRGB(0, 0, 255) -- Azul
+    Title.BackgroundTransparency = 1
+    Title.Size = UDim2.new(1, 0, 0, 50)
+
+    NameBox.Name = "NameBox"
+    NameBox.Parent = Frame
+    NameBox.PlaceholderText = "Digite o nome ou apelido do jogador"
+    NameBox.Font = Enum.Font.SourceSans
+    NameBox.TextSize = 16
+    NameBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+    NameBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    NameBox.Size = UDim2.new(0.8, 0, 0, 40)
+    NameBox.Position = UDim2.new(0.1, 0, 0.35, 0)
+
+    TPButton.Name = "TPButton"
+    TPButton.Parent = Frame
+    TPButton.Text = "TP"
+    TPButton.Font = Enum.Font.SourceSansBold
+    TPButton.TextSize = 18
+    TPButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TPButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255) -- Azul
+    TPButton.Size = UDim2.new(0.6, 0, 0, 40)
+    TPButton.Position = UDim2.new(0.2, 0, 0.7, 0)
+
+    -- Adicionando bordas arredondadas ao botão TP
+    TPButtonUICorner.Parent = TPButton
+    TPButtonUICorner.CornerRadius = UDim.new(0, 10)
+
+    -- Função de Teleporte
+    local function teleportToPlayer(playerName)
+        local targetPlayer = nil
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            if player.Name:lower():find(playerName:lower()) or player.DisplayName:lower():find(playerName:lower()) then
+                targetPlayer = player
+                break
+            end
+        end
+
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local localPlayer = game.Players.LocalPlayer
+            if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+                createNotification("Teletransportado com sucesso", Color3.fromRGB(0, 255, 0)) -- Notificação de sucesso
+            else
+                createNotification("Não foi possível encontrar seu personagem.", Color3.fromRGB(255, 0, 0))
+            end
+        else
+            createNotification("Não foi possível encontrar jogador", Color3.fromRGB(255, 0, 0)) -- Notificação de erro
+        end
+    end
+
+    -- Conexão do Botão de Teleporte
+    TPButton.MouseButton1Click:Connect(function()
+        local playerName = NameBox.Text
+        if playerName ~= "" then
+            teleportToPlayer(playerName)
+        else
+            createNotification("Digite o nome de um jogador válido.", Color3.fromRGB(255, 0, 0))
+        end
+    end)
+
+    -- Função para alternar visibilidade da GUI
+    local guiVisible = true
+    local UserInputService = game:GetService("UserInputService")
+
+    UserInputService.InputBegan:Connect(function(input, isProcessed)
+        if not isProcessed and input.KeyCode == Enum.KeyCode.L then
+            guiVisible = not guiVisible
+            ScreenGui.Enabled = guiVisible  -- Alterando a visibilidade corretamente
+        end
+    end)
+end)
+
+-- Notificação de erro caso falhe
+if not success then
+    createNotification("Não foi possível executar este Script.", Color3.fromRGB(255, 0, 0))
+end
